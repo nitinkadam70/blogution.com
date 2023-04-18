@@ -1,4 +1,4 @@
-//const BlogModel = require('../model/BlogSchema');
+const BlogModel = require('../model/BlogsSchema');
 
 
 //getting Blogs
