@@ -1,12 +1,4 @@
-const mongoose = require("mongoose");
-
-// Title, - text
-// Category , text
-// Tags [ ],
-// Content - string
-// Author ,
-// Timestamp
-// Visitor count
+const mongoose = require('mongoose');
 
 const blogsSchema = mongoose.Schema(
   {
@@ -14,12 +6,12 @@ const blogsSchema = mongoose.Schema(
     category: { type: String, require: true },
     tags: { type: [String], require: true },
     content: { type: String, require: true },
-    author: { type: String, require: false },
-    visitorCount: { type: Number, require: false },
+    author: { type: String, require: true },
+    Visitor: { type: Number, require: true },
   },
   { timestamps: true }
 );
 
-const BlogsSchema = mongoose.model("post", blogsSchema);
+const BlogsSchema = mongoose.model('blog', blogsSchema);
 
 module.exports = BlogsSchema;
