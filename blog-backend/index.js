@@ -1,14 +1,14 @@
-const express = require('express'); 
+const express = require('express');
 const cors = require('cors');
 const connection = require('./config/db');
-const blogsRouter = require('./routes/blogs.routes');
+const blogsRouter = require('./routes/blogs.route');
 require('dotenv').config();
 
 const app = express(); //Server
 
 //middlewares
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(blogsRouter);
@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
 app.all('*', (req, res) => {
   res.status(404).send('Not Found');
 });
-
 
 const PORT = process.env.PORT || 8080;
 
