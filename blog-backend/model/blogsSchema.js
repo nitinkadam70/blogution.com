@@ -8,6 +8,7 @@ const blogsSchema = mongoose.Schema(
     content: { type: String, require: true },
     author: { type: String, require: true },
     Visitor: { type: Number, require: true },
+    status: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

@@ -5,11 +5,11 @@
 
 # testing
 /coverage
+
 # production
 /build
 
 # misc
-.env
 .DS_Store
 .env.local
 .env.development.local
