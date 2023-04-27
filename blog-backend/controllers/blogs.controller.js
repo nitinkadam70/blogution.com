@@ -1,5 +1,5 @@
 const BlogModel = require('../model/BlogsSchema');
-
+var jwt = require("jsonwebtoken");
 const getBlogs = async (req, res) => {
   try {
     const { q, _sort } = req.query;
@@ -103,6 +103,59 @@ const deleteBlog = async (req, res) => {
     });
   }
 };
+const login = async (req, res) => {
+  try {
+    const dbusername = await process.env.Admin_username;
+    const dbpassword = await process.env.Admin_password;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (dbusername == username) {
+      if (dbpassword == password) {
+        var privateKey = await process.env.privet_key;
+        await jwt.sign(
+          req.body,
+          privateKey,
+
+          function (err, token) {
+            if (err) {
+              return res
+                .status(500)
+                .send({
+                  type: "error",
+                  message: "error while generating token",
+                });
+            }
+            return res.status(201).send({
+              type: "success",
+              message: "login successful",
+              token: token,
+            });
+          }
+        );
+
+
+      } else {
+        return res
+          .status(500)
+          .send({ type: "error", message: "wrong password" });
+      }
+    } else {
+      return res
+        .status(500)
+        .send({ type: "error", message: `${username} user not exists` });
+    }
+  } catch (error) {
+
+    console.log("login  error:", error);
+    
+    return res.status(500).send({
+      type: "error",
+      message: "somthing went wrong while login",
+      error: error,
+    });
+  }
+};
 
 module.exports = {
   getBlogs,
@@ -110,4 +163,5 @@ module.exports = {
   updateBlog,
   getSingleBlogs,
   deleteBlog,
+  login
 };
